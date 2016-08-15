@@ -1,4 +1,5 @@
-import com.Surfmerchants.categories.Critical;
+import com.Surfmerchants.categories.Minor;
+import com.Surfmerchants.pageobjects.MasterAdmin;
 import com.Surfmerchants.pageobjects.Superglobal;
 import com.Surfmerchants.util.WebUtil;
 import org.junit.After;
@@ -9,9 +10,9 @@ import org.junit.experimental.categories.Category;
 import org.openqa.selenium.WebDriver;
 
 /**
- * Created by Jonathan on 1/15/2016.e
+ * Created by Jonathan on 8/15/2016.
  */
-public class SuperglobalSignInTest {
+public class MasterAdminTest {
     String pass;
     WebDriver driver;
 
@@ -21,11 +22,12 @@ public class SuperglobalSignInTest {
         pass = WebUtil.getPass();
     }
 
-    @Category({Critical.class})
+    @Category({Minor.class})
     @Test
-    public void superglobalLoginShouldBeSuccessful() {
+    public void masterAdminPageNavShouldBeSuccessful() {
         Superglobal superglobal = WebUtil.goToSuperglobal(driver, pass);
-        Assert.assertTrue("SuperGlobal link should exist if signed in", Superglobal.doesSuperGlobalLinkExist(driver));
+        MasterAdmin masterAdmin = Superglobal.goToMasterAdmin(driver);
+        Assert.assertTrue("Master Admin Header should exist if signed in", MasterAdmin.headerShouldExist(driver));
     }
 
     @After
