@@ -13,25 +13,25 @@ import org.openqa.selenium.WebDriver;
  * Created by Jonathan on 8/15/2016.
  */
 public class MasterAdminTest {
-    String pass;
-    WebDriver driver;
+    String PASS;
+    WebDriver DRIVER;
 
     @Before
     public void setUp() {
-        driver = WebUtil.getDriver();
-        pass = WebUtil.getPass();
+        DRIVER = WebUtil.getDriver();
+        PASS = WebUtil.getPass();
     }
 
     @Category({Minor.class})
     @Test
     public void masterAdminPageNavShouldBeSuccessful() {
-        Superglobal superglobal = WebUtil.goToSuperglobal(driver, pass);
-        MasterAdmin masterAdmin = Superglobal.goToMasterAdmin(driver);
-        Assert.assertTrue("Master Admin Header should exist if signed in", MasterAdmin.headerShouldExist(driver));
+        Superglobal superglobal = WebUtil.goToSuperglobal(DRIVER, PASS);
+        MasterAdmin masterAdmin = Superglobal.goToMasterAdmin(DRIVER);
+        Assert.assertTrue("Master Admin Header should exist if signed in", MasterAdmin.headerShouldExist(DRIVER));
     }
 
     @After
     public void tearDown() {
-        driver.quit();
+        DRIVER.quit();
     }
 }

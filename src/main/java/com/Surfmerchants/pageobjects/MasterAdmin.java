@@ -12,31 +12,36 @@ import java.util.List;
  * Created by Jonathan on 8/15/2016.
  */
 public class MasterAdmin {
+    String EXPECTED_URL = "/admin/MSAdmin.php";
+    String HEADER_TEXT = "Master Admin Page";
 
 
     public static void masterAdminWait(WebDriver driver) {
         WebUtil.waitForElementVisible(driver, By.cssSelector(".blue16bold"));
     }
 
-    public static WebElement getRow(WebDriver driver, String identifier) throws NoSuchElementException {
+    public static WebElement getRowByDirectoryName(WebDriver driver, String dName) throws NoSuchElementException {
         masterAdminWait(driver);
         List<WebElement> allTR = WebUtil.getListOfElements(driver, By.tagName("tr"));
+        int trCount = allTR.size();
+        List<WebElement> allDirectoryNames = driver.findElements(By.xpath("html/body/div/table/tbody/tr[*]/td[4]"));
+        System.out.print(allDirectoryNames);    //this should be the directory names for each, starting from tr[3]
         for (WebElement aTR : allTR) {
             List<WebElement> TDs = aTR.findElements(By.tagName("td"));
             for (WebElement TD : TDs) {
-                if (TD.getText() == identifier) {
+                if (TD.getText() == dName) {
                     return aTR;
                 }
             }
         }
-        throw new NoSuchElementException("Row was not found by identifier" + identifier);
+        throw new NoSuchElementException("Row was not found by identifier" + dName);
     }
 
     public static String basicGet(WebDriver driver, String identifier, int column) {
         masterAdminWait(driver);
         WebElement row = null;
         try {
-            row = getRow(driver, identifier);
+            row = getRowByDirectoryName(driver, identifier);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
         }

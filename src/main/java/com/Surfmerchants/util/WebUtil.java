@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.swing.*;
@@ -117,15 +118,31 @@ public class WebUtil {
         return path;
     }
 
-    public static void selectOption(WebDriver driver, By by, String option) {
+    //rebuilt with Select selenium object 9/7/2016 Bergie
+    //previous code is commented out below
+    public static void selectOptionByText(WebDriver driver, By by, String option) {
         WebUtil.waitForElementVisible(driver, by);
-        WebElement select = driver.findElement(by);
-        select.click();
-        List<WebElement> options = select.findElements(By.tagName("option"));
-        for (WebElement opt : options) {
+        Select dropdown = (Select) driver.findElement(by);
+        dropdown.selectByVisibleText(option);
+        String selectedOption = dropdown.getFirstSelectedOption().getText();
+        assert selectedOption.equalsIgnoreCase(option);
+        //WebElement select = driver.findElement(by);
+        //select.click();
+        //List<WebElement> options = select.findElements(By.tagName("option"));
+        /*for (WebElement opt : options) {
             if (opt.getText().contains(option)) {
                 opt.click();
             }
-        }
+        }*/
+    }
+
+    //Need to determine how to assert this option
+    public static void selectOptionByIndex(WebDriver driver, By by, Integer option) {
+        WebUtil.waitForElementVisible(driver, by);
+        Select dropdown = (Select) driver.findElement(by);
+        List<WebElement> options = dropdown.getOptions();
+        dropdown.selectByIndex(option);
+        //String selectedOption = dropdown.getFirstSelectedOption().getText();
+        //assert selectedOption.equalsIgnoreCase(option);
     }
 }

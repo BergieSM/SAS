@@ -38,7 +38,7 @@ public class GlobalTest {
         Global global = Superglobal.goToMSPGlobalPage(driver, "2_qa");
         WebElement select = driver.findElement(By.id("GAH_ClientID"));
         select.click();
-        WebUtil.selectOption(driver, By.id("GAH_ClientID"), "Bergie");
+        WebUtil.selectOptionByText(driver, By.id("GAH_ClientID"), "Bergie");
     }
 
     @After

@@ -79,7 +79,8 @@ public class Superglobal {
         return PageFactory.initElements(driver, MasterAdmin.class);
     }
 
+    //Waits for at least 100 loaded rows before continuing.  Hopefully that is enough.
     public static void superglobalWait(WebDriver driver) {
-        WebUtil.waitForElementVisible(driver, By.partialLinkText("SuperGlobal"));
+        WebUtil.waitForElementVisible(driver, By.xpath("html/body/div/table/tbody/tr[100]"));
     }
 }
